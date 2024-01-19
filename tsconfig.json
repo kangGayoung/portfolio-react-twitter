@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "baseUrl": "src", //url 설정
     "lib": [
       "dom",
       "dom.iterable",
@@ -22,5 +23,10 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "paths": {  // 경로 설정
+    "pages/*": ["pages/*"],
+    "components/*": ["components/*"],
+    "firebaseApp/*": ["firebaseApp/*"]
+  }
 }

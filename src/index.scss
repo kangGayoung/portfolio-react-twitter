@@ -46,6 +46,19 @@ body {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
+.transparent {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+
+.sticky {
+  margin: 0 auto;
+  top:0;
+  width: 100%;
+  position: sticky;
+  max-width: 600px;
+}
+
 // footer
 .footer {
   margin: 0 auto ;
@@ -80,18 +93,27 @@ body {
 
 // home layout
 .home {
+  &_top {
+    @extend .transparent;
+    @extend .sticky;
+  }
+
   &_title {
+    background-color: transparent;
+    width: 100%;
     padding: 16px;
     font-weight: 700;
     font-size: 20px;
   }
   &_tabs{
+    background-color: transparent;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   &_tab {
+    background-color: transparent;
     text-align: center;
     font-weight: 500;
     padding:16px;
@@ -161,6 +183,18 @@ body {
 
 // post layout
 .post {
+
+  &_no-posts {
+    padding: 16px;
+
+    .post_text {
+      font-size: 14px;
+      border: 1px solid $gray;
+      padding: 16px;
+      border-radius: 4px;
+    }
+  }
+
   padding-bottom: 40px;
 
   &_flex {
@@ -317,6 +351,30 @@ body {
   }
   &_error {
     color: red;
+  }
+
+  &_btn-google {
+    @extend .form_btn-submit;
+    background-color: $white;
+    color: $activeBorder;
+
+    &:hover,
+    &focus {
+      background-color: $activeBorder;
+      color: $white;
+    }
+  }
+
+  &_btn-github {
+    @extend .form_btn-submit;
+    background-color: black;
+    color: white;
+
+    &:hover,
+    &:focus{
+      background-color: $activeBg;
+      color: $white;
+    }
   }
 }
 

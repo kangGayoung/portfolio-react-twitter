@@ -1,10 +1,10 @@
-import {FiImage} from "react-icons/fi";
-import {Link} from "react-router-dom";
-import {FaRegComment, FaUserCircle} from "react-icons/fa";
-import {AiFillHeart} from "react-icons/ai";
+
 import PostForm from "../../components/posts/PostForm";
 import PostBox from "../../components/posts/PostBox";
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
+import { collection, query, where, onSnapshot,orderBy } from "firebase/firestore";
+import AuthContext from "../../context/AuthContext";
+import {db} from "../../firebaseApp";
 
 export interface PostProps {
     id:string;
@@ -18,56 +18,43 @@ export interface PostProps {
     comments?: any;
 }
 
-// 더미데이터
-const posts: PostProps[] = [
-    {
-        id:"1",
-        email:"test@test.com",
-        content:"내용입니다",
-        createdAt:"2024-01-19",
-        uid:"123123",
-    },{
-        id:"2",
-        email:"test@test.com2",
-        content:"내용입니다222",
-        createdAt:"2024-01-19",
-        uid:"123123",
-    },{
-        id:"3",
-        email:"test@test.com3",
-        content:"내용입니다3",
-        createdAt:"2024-01-19",
-        uid:"123123",
-    },{
-        id:"4",
-        email:"test@test.com4",
-        content:"내용입니다4",
-        createdAt:"2024-01-19",
-        uid:"123123",
-    },{
-        id:"5",
-        email:"test@test.com5",
-        content:"내용입니다5",
-        createdAt:"2024-01-19",
-        uid:"123123",
-    },
-]
-
 export default function HomePage(){
+    const [posts, setPosts] = useState<PostProps[]>([]);
+    const {user} = useContext(AuthContext);
 
+    useEffect(() => {
+        if (user) {
+            let postsRef = collection(db, "posts");
+            let postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+
+            onSnapshot(postsQuery, (snapShot) => {
+                let dataObj = snapShot.docs.map((doc) => ({
+                    ...doc.data(),
+                    id: doc?.id,
+                }));
+                setPosts(dataObj as PostProps[]);
+            })
+        }
+    }, [user]);
     return (
         <div className="home">
-            <div className="home_title">Home</div>
-            <div className="home_tabs">
-                <div className="home_tab home_tab--active">For You</div>
-                <div className="home_tab">Following</div>
+            <div className="home_top">
+                <div className="home_title">Home</div>
+                <div className="home_tabs">
+                    <div className="home_tab home_tab--active">For You</div>
+                    <div className="home_tab">Following</div>
+                </div>
             </div>
-            <PostForm />
+            <PostForm/>
             {/* Tweet posts */}
             <div className="post">
-                {posts?.map((post) => (
-                    <PostBox post={post} key={post.id} />
-                ))}
+                {posts?.length > 0 ? posts?.map((post) => (
+                    <PostBox post={post} key={post.id}/>
+                )) : (
+                    <div className="post_no-posts">
+                        <div className="post_text">게시글이 없습니다.</div>
+                    </div>
+                )}
             </div>
         </div>
     )

@@ -22,7 +22,7 @@ export default function LoginForm(){
             const auth = getAuth(app);
             await signInWithEmailAndPassword(auth, email, password);
             navigate("/");
-            toast.success("성공적으로 회원가입이 되었습니다.");
+            toast.success("성공적으로 로그인이 되었습니다.");
         } catch (error: any){
             toast.error(error?.code);
         }
@@ -75,7 +75,7 @@ export default function LoginForm(){
         await signInWithPopup(auth, provider as GithubAuthProvider | GoogleAuthProvider
         ).then((result) => {
             console.log(result);
-            toast.success("회원가입 되었습니다.");
+            toast.success("로그인 되었습니다.");
         }).catch((error) => {
             console.log(error);
             const errorMessage = error?.message;

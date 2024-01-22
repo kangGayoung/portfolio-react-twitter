@@ -183,6 +183,18 @@ body {
 
 // post layout
 .post {
+  &_header {
+    button {
+      border: none;
+      padding: 16px;
+    }
+
+    &-btn {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
 
   &_no-posts {
     padding: 16px;

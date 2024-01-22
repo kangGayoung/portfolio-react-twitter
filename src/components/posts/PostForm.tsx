@@ -17,7 +17,7 @@ export default function PostForm(){
         try {
             await addDoc(collection(db, "posts"),{
                 content: content,
-                 // ?.toLocaleDateString 날짜가져오기 포멧팅
+                // ?.toLocaleDateString 날짜가져오기 포멧팅
                 createdAt: new Date()?.toLocaleDateString("ko",{
                     hour: "2-digit",
                     minute: "2-digit",
@@ -25,7 +25,7 @@ export default function PostForm(){
                 }),
                 uid: user?.uid,
                 email: user?.email,
-            });
+            })
             setContent(""); // content 초기화
             toast.success("게시글을 생성했습니다.");
         } catch (e:any){

@@ -38,13 +38,19 @@ export default function PostBox({post}: PostBoxProps){
                         <div className="post_createdAt">{post?.createdAt}</div>
                     </div>
                     <div className="post_box-content">{post?.content}</div>
+                    <div className="post-form_hashtags-outputs">
+                        {post?.hashTags?.map((tag, index) => (
+                            <span className="post-form_hashtags-tag" key={index}>#{tag}</span>
+                        ))}
+                    </div>
+
                 </div>
             </Link>
             <div className="post_box-footer">
                 {/* post.uid === user.uid 일때 */}
                 {user?.uid === post?.uid && ( //유저의 아이디가 포스트의 아이디와 일치할때만 삭제
-                <>
-                    <button type="button" className="post_delete"
+                    <>
+                        <button type="button" className="post_delete"
                             onClick={handleDelete}>Delete</button>
                     <button type="button" className="post_edit">
                         <Link to={`/posts/edit/${post?.id}`}>Edit</Link>

@@ -1,5 +1,6 @@
 import  {useNavigate} from "react-router-dom";
 import {BsHouse} from "react-icons/bs";
+import {AiOutlineSearch} from "react-icons/ai";
 import {BiUserCircle} from "react-icons/bi";
 import {MdLogout, MdLogin} from "react-icons/md";
 import {useContext} from "react";
@@ -17,6 +18,7 @@ export default function MenuList() {
             <div className="footer_grid">
                 <button type="button" onClick={() => navigate("/")}><BsHouse />Home</button>
                 <button type="button" onClick={() => navigate("/profile")}><BiUserCircle/>Profile</button>
+                <button type="button" onClick={() => navigate("/search")}><AiOutlineSearch/>Search</button>
                 {user === null ? (
                     <button type="button" onClick={() => navigate("/user/login")}><MdLogin/>Login</button>
                     ) : (

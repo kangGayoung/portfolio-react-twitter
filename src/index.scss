@@ -1,6 +1,7 @@
 $background: #1e293b;
 $activeBg: #131b26;
 $white:#fff;
+$backgroundLight:#263340;
 $border:#708090;
 $primaryColor:#60a5fa;
 $activeBorder:#3b82f6;
@@ -74,7 +75,7 @@ body {
 
   &_grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0,1fr));
+    grid-template-columns: repeat(4, minmax(0,1fr));
     background-color: transparent;
 
     button {
@@ -93,6 +94,28 @@ body {
 
 // home layout
 .home {
+
+  &_search-div {
+    display: flex;
+    justify-content: center;
+  }
+
+  &_search {
+    @extend .post-form__input;
+    background-color: $backgroundLight;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 12px;
+    width: 90% !important;
+    font-size: 15px;
+    font-weight: 600;
+
+    &:focus {
+      border: 1px solid $primaryColor;
+      background-color: $activeBg;
+    }
+  }
+
   &_top {
     @extend .transparent;
     @extend .sticky;

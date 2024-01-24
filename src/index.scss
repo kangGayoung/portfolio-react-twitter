@@ -154,6 +154,23 @@ body {
   }
 }
 .post-form {
+  &_profile {
+    padding: 16px;
+
+    .post-form_input {
+      border-bottom: 1px solid $gray;
+      padding: 8px 2px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 20px;
+
+      &:active,
+      &:focus {
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+
   &_image-area {
     display: flex;
     align-items: center;
@@ -477,6 +494,49 @@ body {
       background-color: $activeBg;
       color: $white;
     }
+  }
+}
+
+// 프로필 레이아웃
+.profile {
+  display: flex;
+  padding: 0 1rem;
+  margin-top: 2.5rem;
+  justify-content: space-between;
+  align-items: center;
+
+  &_image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+
+  &_btn {
+    @extend .button;
+    background-color: $primaryColor;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+    }
+  }
+
+  &_text {
+    padding: 0 1rem;
+    margin-top: 20px;
+  }
+
+  &_name {
+    font-size: 16px;
+    color: $white;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  &_email {
+    font-size: 14px;
+    color: $grayText;
+    margin-bottom: 4px;
   }
 }
 

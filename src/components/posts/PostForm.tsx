@@ -34,7 +34,7 @@ export default function PostForm(){
 
     const onSubmit = async (e: any) => {
         setIsSubmitting(true);
-        const key = `${user?.uid}/${uuidv4()}`;
+        const key = `${user?.uid}/${uuidv4()}`; //uuidv4 랜던 string으로 파일명 생성
         const storageRef = ref(storage, key);
         e.preventDefault();
 

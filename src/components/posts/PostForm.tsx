@@ -92,6 +92,7 @@ export default function PostForm(){
                     className="post-form_input"
                     name="hashtag"
                     id="hashtag"
+                    placeholder="해시태그 + 스페이스바 입력"
                     onChange={onChangeHashTag}
                     onKeyUp={handleKeyUp}
                     value={hashTag}

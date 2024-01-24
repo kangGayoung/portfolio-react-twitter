@@ -38,7 +38,7 @@ export default function PostEditForm(){
                 const postRef = doc(db, "posts", post?.id);
                 await updateDoc(postRef, {
                     content:content,
-                    hashTag: tags,
+                    hashTag: tags, // 새로운 태그 수정해서 게시
                 });
                 navigate(`/posts/${post?.id}`);
                 toast.success("게시글을 수정했습니다.");

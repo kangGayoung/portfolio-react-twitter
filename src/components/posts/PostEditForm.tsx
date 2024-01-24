@@ -24,6 +24,7 @@ export default function PostEditForm(){
             //console.log(docSnap.data(), docSnap.id);
             setPost({...(docSnap?.data() as PostProps), id:docSnap.id});
             setContent(docSnap?.data()?.content);
+
             //게시글 가져올때 작성됐던 해시태그도 가져오기
             setTags(docSnap?.data()?.hashTags);
         }
@@ -34,12 +35,12 @@ export default function PostEditForm(){
 
         try {
             if(post){
-                const postRef = doc(db, "post", post?.id);
+                const postRef = doc(db, "posts", post?.id);
                 await updateDoc(postRef, {
                     content:content,
                     hashTag: tags,
                 });
-                navigate(`posts/${post?.id}`);
+                navigate(`/posts/${post?.id}`);
                 toast.success("게시글을 수정했습니다.");
             }
         } catch (e:any){

@@ -62,7 +62,7 @@ export default function PostBox({post}: PostBoxProps){
                 <AiFillHeart/>
                 {post?.likeCount || 0}
             </button>
-            <button type="button" className="post_comment">
+            <button type="button" className="post_comments">
                 <FaRegComment/>
                 {post?.comments?.length || 0}
             </button>

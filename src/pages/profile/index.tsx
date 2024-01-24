@@ -7,27 +7,43 @@ import AuthContext from "../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
 
 const PROFILE_DEFAULT_URL = '/logo192.png'; //기본 프로필 URL
+type TabType = "my" | "like";
 
 export default function ProfilePage(){
-    const [posts, setPosts] = useState<PostProps[]>([]);
+    const [activeTab, setActiveTap] = useState<TabType>("my");
+    //const [posts, setPosts] = useState<PostProps[]>([]);
+    const [myPosts, setMyPosts] = useState<PostProps[]>([]); // 게시글 카테고리별로 나누기
+    const [likePosts, setLikePosts] = useState<PostProps[]>([]);
     const navigate = useNavigate();
     const {user} = useContext(AuthContext);
 
     useEffect(() => {
         if (user) {
             let postsRef = collection(db, "posts");
-            let postsQuery = query(
+            const myPostQuery = query(
                 postsRef, 
                 where("uid", "==", user.uid), // 유저와 같은 아이디일때 게시글 가져오기
                 orderBy("createdAt", "desc")
             );
+            const likePostQuery = query(
+                postsRef,
+                where("likes", "array-contains", user.uid), // 유저와 같은 아이디일때 게시글 가져오기
+                orderBy("createdAt", "desc")
+            );
 
-            onSnapshot(postsQuery, (snapShot) => {
+            onSnapshot(myPostQuery, (snapShot) => {
                 let dataObj = snapShot.docs.map((doc) => ({
                     ...doc.data(),
                     id: doc?.id,
                 }));
-                setPosts(dataObj as PostProps[]);
+                setMyPosts(dataObj as PostProps[]);
+            })
+            onSnapshot(likePostQuery, (snapShot) => {
+                let dataObj = snapShot.docs.map((doc) => ({
+                    ...doc.data(),
+                    id: doc?.id,
+                }));
+                setLikePosts(dataObj as PostProps[]);
             })
         }
     }, [user]);
@@ -57,18 +73,34 @@ export default function ProfilePage(){
                     <div className="profile_email">{user?.email}</div>
                 </div>
                 <div className="home_tabs">
-                    <div className="home_tab home_tab--active">For You</div>
-                    <div className="home_tab">Likes</div>
+                    {/*기본적으로 홈탭을 보여주고 액티브 탭이 "마이" 일때 액티브 적용*/}
+                    <div className={`home_tab ${activeTab === "my" && "home_tab-active"}`}
+                         onClick={() => {setActiveTap("my")}}>For You</div>
+                    <div className={`home_tab ${activeTab === "like" && "home_tab-active"}`}
+                         onClick={() => {setActiveTap("like")}}>Likes</div>
                 </div>
-                <div className="post">
-                    {posts?.length > 0 ? (
-                        posts?.map((post) => <PostBox post={post} key={post.id} />)
-                    ) : (
-                        <div className="post_no-posts">
-                            <div className="post_text">게시글이 없습니다.</div>
-                        </div>
-                    )}
-                </div>
+                {activeTab === "my" && (
+                    <div className="post">
+                        {myPosts?.length > 0 ? (
+                            myPosts?.map((post) => <PostBox post={post} key={post.id}/>)
+                        ) : (
+                            <div className="post_no-posts">
+                                <div className="post_text">게시글이 없습니다.</div>
+                            </div>
+                        )}
+                    </div>
+                )}
+                {activeTab === "like" && (
+                    <div className="post">
+                        {likePosts?.length > 0 ? (
+                            likePosts?.map((post) => <PostBox post={post} key={post.id}/>)
+                        ) : (
+                            <div className="post_no-posts">
+                                <div className="post_text">게시글이 없습니다.</div>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     )

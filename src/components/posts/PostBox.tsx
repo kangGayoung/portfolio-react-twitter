@@ -17,6 +17,7 @@ export default function PostBox({post}: PostBoxProps){
 
     const handleDelete = async () => {
         const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
+        // 윈도우에서 게시글 삭제 확인
         if(confirm){
             await deleteDoc(doc(db, "posts", post.id));
             toast.success("게시글을 삭제했습니다.");

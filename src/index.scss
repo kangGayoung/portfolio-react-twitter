@@ -101,7 +101,7 @@ body {
   }
 
   &_search {
-    @extend .post-form__input;
+    @extend .post-form_input;
     background-color: $backgroundLight;
     border-radius: 20px;
     margin-bottom: 20px;

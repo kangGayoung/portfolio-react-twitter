@@ -154,6 +154,28 @@ body {
   }
 }
 .post-form {
+  &_image-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &_attachment {
+    display: flex;
+    align-items: end;
+    gap: 16px;
+  }
+
+  &_clear-btn {
+    @extend .button;
+    padding: 0.2rem 0.8rem;
+    background-color: $danger;
+
+    &:hover,
+    &:focus {
+      background-color: $dangerDark;
+    }
+  }
 
   &_input {
     font-family: $font;
@@ -216,6 +238,7 @@ body {
     padding: 0.75rem 1rem;
     justify-content: space-between;
     border-bottom: 1px solid $border;
+    align-items: center; //트윗 버튼 정렬
 
     .post-form_file {
       display: flex;
@@ -245,6 +268,11 @@ body {
 
 // post layout
 .post {
+
+  &_image-div {
+    padding: 16px;
+  }
+
   &_header {
     button {
       border: none;

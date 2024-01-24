@@ -45,6 +45,10 @@ body {
   border:none;
   cursor: pointer;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .transparent {
@@ -128,6 +132,7 @@ body {
     font-weight: 700;
     font-size: 20px;
   }
+
   &_tabs{
     background-color: transparent;
     width: 100%;
@@ -142,7 +147,7 @@ body {
     padding:16px;
     cursor: pointer;
 
-    &--active {
+    &-active {
       font-weight: 700;
       border-bottom: 2px solid $activeBorder;
     }

@@ -29,7 +29,7 @@ export default function ProfileEditPage(){
     const onSubmit = async (e:any) => {
         let key = `${user?.uid}/${uuidv4()}`;
         const storageRef = ref(storage, key);
-        let newImageurl = null;
+        let newImageUrl = null;
 
         e.preventDefault();
 
@@ -46,13 +46,13 @@ export default function ProfileEditPage(){
             // 이미지 업로드
             if(imageUrl){
                 const data = await uploadString(storageRef, imageUrl, "data_url");
-                newImageurl = await getDownloadURL(data?.ref);
+                newImageUrl = await getDownloadURL(data?.ref);
             }
             // updateProfile 호출
             if(user){
                 await updateProfile(user, {
                     displayName: displayName || "",
-                    photoURL: newImageurl || "", //프로필 이미지 삭제 후 업데이트
+                    photoURL: newImageUrl || "", //프로필 이미지 삭제 후 업데이트
                 }).then(() => {
                     toast.success("프로필이 업데이트 되었습니다.");
                     navigate("/profile");

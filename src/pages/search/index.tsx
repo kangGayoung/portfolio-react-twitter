@@ -21,13 +21,14 @@ export default function SearchPage(){
             let postRef = collection(db, "posts");
             let postQuery = query(
                 postRef,
-                where("hashTags", "array-contains-any", [tagQuery]), //[tagQuery]의 배열의 값을 가지고 있어야한다
+                where("hashTags", "array-contains-any", [tagQuery]),
+                //hashTags 에서 array-contains-any 어떤값을 포함해야하냐?:[tagQuery]의 배열의 값을 가지고 있어야한다
                 orderBy("createdAt", "desc")
             )
-
+            // 실시간 업데이트 수신대기
             onSnapshot(postQuery, (snapshot) => {
                 let dataObj = snapshot?.docs?.map((doc) => ({
-                    ...doc?.data(),
+                    ...doc?.data(), //doc만 가져오면 객체만 호출
                     id: doc?.id,
                 }));
 

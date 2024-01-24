@@ -15,7 +15,7 @@ export default function PostDetailPage(){
 
     const getPost = useCallback(async () => {
         if(params.id) {
-            const docRef = doc(db, "post", params.id);
+            const docRef = doc(db, "posts", params.id);
             const docSnap = await getDoc(docRef);
 
             //docSnap data 가져오기 //as PostProps 타입지정

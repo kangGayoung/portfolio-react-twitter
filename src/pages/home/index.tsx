@@ -2,7 +2,7 @@
 import PostForm from "../../components/posts/PostForm";
 import PostBox from "../../components/posts/PostBox";
 import React, {useContext, useEffect, useState} from "react";
-import { collection, query, where, onSnapshot,orderBy } from "firebase/firestore";
+import { collection, query,  onSnapshot,orderBy } from "firebase/firestore";
 import AuthContext from "../../context/AuthContext";
 import {db} from "../../firebaseApp";
 
@@ -38,6 +38,7 @@ export default function HomePage(){
             })
         }
     }, [user]);
+
     return (
         <div className="home">
             <div className="home_top">

@@ -1,8 +1,10 @@
-$background: #1e293b;
-$activeBg: #131b26;
+$background: 1e293b;
+$backgroundDm: #1e293b; //배경 다크모드
+$activeBg: #ddd;
 $white:#fff;
-$backgroundLight:#263340;
-$border:#708090;
+$black:#444;
+$backgroundLight:#ddd;
+$border:#ddd;
 $primaryColor:#60a5fa;
 $activeBorder:#3b82f6;
 $grayText: #9ca3af;
@@ -23,8 +25,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 * {
-  background-color: $background;
-  color:$white;
+  //background-color: $background;
+  color:$black;
+}
+
+.Toastify__toast-body > div:last-child {
+  color: white;
 }
 
 .layout {
@@ -45,6 +51,9 @@ body {
   border:none;
   cursor: pointer;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  color:$white;
+
+  & a {color:$white;}
 
   &:disabled {
     opacity: 0.5;
@@ -75,12 +84,13 @@ body {
   width: 100%;
   max-width: 600px;
   background-color: transparent;
-  color: $white;
+  color: $black;
 
   &_grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0,1fr));
-    background-color: transparent;
+    //background-color: transparent;
+    background-color: #dddddd40;
 
     button {
       border:none;
@@ -123,6 +133,11 @@ body {
   &_top {
     @extend .transparent;
     @extend .sticky;
+
+  }
+
+  &_top-bg {
+    background-color: #dddddd40 ;
   }
 
   &_title {
@@ -299,6 +314,8 @@ body {
     button {
       border: none;
       padding: 16px;
+
+      background: transparent;
     }
 
     &-btn {
@@ -313,9 +330,11 @@ body {
 
     .post_text {
       font-size: 14px;
-      border: 1px solid $gray;
+      //border: 1px solid $gray;
+      border: 1px solid #ddd;
       padding: 16px;
       border-radius: 4px;
+      color: $gray;
     }
   }
 
@@ -325,6 +344,36 @@ body {
     display: flex;
     gap: 4px;
     align-items: center;
+
+    &-between {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  &_follow-btn {
+    @extend .button;
+    background-color: $activeBorder;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      background-color: $white;
+      color: $activeBorder;
+    }
+  }
+
+  &_following-btn {
+    @extend .button;
+    background-color: $white;
+    color: $activeBorder;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+      color: $white;
+    }
   }
 
   &_email,
@@ -351,6 +400,8 @@ body {
         width: 40px;
         height: 40px;
         border-radius: 50%;
+
+        opacity: 0.3;
       }
     }
 
@@ -395,6 +446,8 @@ body {
 
         &.post_likes,
         &.post_comments {
+          color: $black;
+
           @extend .post_flex;
 
           &:hover,
@@ -482,6 +535,8 @@ body {
     background-color: $white;
     color: $activeBorder;
 
+    border: 1px solid;
+
     &:hover,
     &focus {
       background-color: $activeBorder;
@@ -533,7 +588,7 @@ body {
 
   &_name {
     font-size: 16px;
-    color: $white;
+    color: $black;
     font-weight: 700;
     margin-bottom: 4px;
   }

@@ -11,7 +11,6 @@ import SearchPage from "../pages/search";
 import NotificationsPage from "../pages/notifications";
 import LoginPage from "../pages/users/login";
 import SignupPage from "../pages/users/signup";
-import {isCursorAtEnd} from "@testing-library/user-event/dist/utils";
 interface RouterProps {
     isAuthenticated : boolean;
 }

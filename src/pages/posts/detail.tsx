@@ -3,7 +3,7 @@ import PostBox from "components/posts/PostBox";
 import {PostProps} from "pages/home";
 import {useCallback, useEffect, useState} from "react";
 import {useParams, } from "react-router-dom";
-import {doc, getDoc, onSnapshot} from "firebase/firestore";
+import {doc, onSnapshot} from "firebase/firestore";
 import {db} from "firebaseApp";
 
 import PostHeader from "components/posts/PostHeader";

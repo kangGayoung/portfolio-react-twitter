@@ -1,0 +1,58 @@
+$background: 1e293b;
+$backgroundDm: #1e293b; //배경 다크모드
+$activeBg: #ddd;
+$white:#fff;
+$black:#444;
+$backgroundLight:#ddd;
+$border:#ddd;
+$primaryColor:#60a5fa;
+$activeBorder:#3b82f6;
+$grayText: #9ca3af;
+$danger:#dc2626;
+$dangerDark:#dc26268e;
+$gray:#6b7280;
+$grayDark: #4f545e;
+
+$font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+sans-serif;
+
+/**
+모듈
+//_base.scss
+-> @use 로 모듈화 해서 사용
+
+믹스인
+함수를 만들어서
+-> @inclued 로 함수를 재사용
+*/
+
+// Breakpoints
+$mobile: 360px;
+$tablet: 600px;
+$desktop: 1024px;
+
+// media query mixin
+@mixin xsMobile {
+  @media (max-width: #{$mobile - 1px}) {
+    @content; // 해당내용 모두 적용
+  }
+}
+
+@mixin mobile {
+  @media (min-width: $mobile) and (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $tablet) and (max-width: #{$desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}

@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import AuthContext from "../../context/AuthContext";
 import {db} from "../../firebaseApp";
+import useTranslation from "../../hooks/useTranslation";
 
 export interface PostProps {
     id:string;
@@ -39,6 +40,7 @@ export default function HomePage(){
     const [followingIds, setFollowingIds] = useState<string[]>([""]); //배열안에 내용이 항상 있어야함 ""
     const [activeTab, setActiveTab] = useState<tabType>("all");
     const {user} = useContext(AuthContext);
+    const t = useTranslation();
 
     // following 탭 구현
     // 실시간 동기화로 user의 팔로잉 id 배열 가져오기
@@ -93,52 +95,50 @@ export default function HomePage(){
     return (
       <div className="home">
         <div className="home_top home_top-bg">
-          <div className="home_title">Home</div>
+          <div className="home_title">{t("MENU_HOME")}</div>
           <div className="home_tabs">
             <div
-              className={`home_tab ${
-                  activeTab === "all" && "home_tab-active"
-              }`}
+              className={`home_tab ${activeTab === "all" && "home_tab-active"}`}
               onClick={() => {
                 setActiveTab("all");
               }}
-            >
-              All
+            >   {t("TAB_ALL")}
             </div>
             <div
-                className={`home_tab ${
-                    activeTab === "following" && "home_tab-active"
-                }`}
+              className={`home_tab ${
+                activeTab === "following" && "home_tab-active"
+              }`}
               onClick={() => {
                 setActiveTab("following");
               }}
-            >
-              Following
+            >   {t("TAB_FOLLOWING")}
             </div>
           </div>
         </div>
         <PostForm />
         {activeTab === "all" && (
-            <div className="post">
-                {posts?.length > 0 ? (
-                    posts?.map((post) => <PostBox post={post} key={post.id}/>)
-                ) : (
-                    <div className="post_no-posts">
-                        <div className="post_text">게시글이 없습니다.</div>
-                    </div>
-                )}
-            </div>
+          <div className="post">
+            {posts?.length > 0 ? (
+              posts?.map((post) => <PostBox post={post} key={post.id} />)
+            ) : (
+              <div className="post_no-posts">
+                <div className="post_text">{t("NO_POSTS")}</div>
+              </div>
+            )}
+          </div>
         )}
         {activeTab === "following" && (
-            <div className="post">
-                {followingPosts?.length > 0 ? (
-                    followingPosts?.map((post) => <PostBox post={post} key={post.id}/>)
-                ) : (
-                    <div className="post_no-posts">
-                        <div className="post_text">게시글이 없습니다.</div>
-                    </div>
-                )}
-            </div>
+          <div className="post">
+            {followingPosts?.length > 0 ? (
+              followingPosts?.map((post) => (
+                <PostBox post={post} key={post.id} />
+              ))
+            ) : (
+              <div className="post_no-posts">
+                <div className="post_text">{t("NO_POSTS")}</div>
+              </div>
+            )}
+          </div>
         )}
       </div>
     );

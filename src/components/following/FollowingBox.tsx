@@ -1,7 +1,15 @@
 import {PostProps} from "pages/home";
 import {useCallback, useContext, useEffect, useState} from "react";
 import AuthContext from "../../context/AuthContext";
-import {arrayRemove, arrayUnion, doc, onSnapshot, setDoc, updateDoc} from "firebase/firestore";
+import {
+    addDoc,
+    arrayRemove,
+    arrayUnion, collection,
+    doc,
+    onSnapshot,
+    setDoc,
+    updateDoc
+} from "firebase/firestore";
 import {db} from "../../firebaseApp";
 import {toast} from "react-toastify";
 
@@ -38,6 +46,19 @@ export default function FollowingBox({post}:FollowingProps){
                 },
                 {merge: true}
                 );
+
+                // 팔로잉 알림 생성
+                await addDoc(collection(db, "notifications"), {
+                    createdAt: new Date()?.toLocaleDateString("ko", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                    }),
+                    content: `${user?.email || user?.displayName}가 팔로우를 했습니다.`,
+                    url: "#",
+                    isRead: false,
+                    uid: post?.uid, // 내 게시글의 팔로우 알림
+                })
 
                 toast.success("팔로우를 했습니다.")
             }

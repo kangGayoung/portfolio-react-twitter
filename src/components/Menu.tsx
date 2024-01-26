@@ -8,6 +8,7 @@ import AuthContext from "../context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 import {app} from "../firebaseApp";
 import {toast} from "react-toastify";
+import {IoMdNotificationsOutline} from "react-icons/io";
 
 export default function MenuList() {
     const {user} = useContext(AuthContext);
@@ -16,12 +17,18 @@ export default function MenuList() {
     return (
         <div className="footer">
             <div className="footer_grid">
-                <button type="button" onClick={() => navigate("/")}><BsHouse />Home</button>
-                <button type="button" onClick={() => navigate("/profile")}><BiUserCircle/>Profile</button>
-                <button type="button" onClick={() => navigate("/search")}><AiOutlineSearch/>Search</button>
+                <button type="button" onClick={() => navigate("/")}><BsHouse/>Home</button>
+                <button type="button" onClick={() => navigate("/profile")}><BiUserCircle/>Profile
+                </button>
+                <button type="button" onClick={() => navigate("/search")}><AiOutlineSearch/>Search
+                </button>
+                <button type="button" onClick={() => navigate("/notifications")
+                }><IoMdNotificationsOutline/>Notify
+                </button>
                 {user === null ? (
-                    <button type="button" onClick={() => navigate("/user/login")}><MdLogin/>Login</button>
-                    ) : (
+                    <button type="button" onClick={() => navigate("/user/login")}><MdLogin/>Login
+                    </button>
+                ) : (
                     <button type="button" onClick={async () => {
                         const auth = getAuth(app);
                         //사용자를 로그아웃시키려면 signOut을 호출

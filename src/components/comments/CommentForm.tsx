@@ -1,6 +1,6 @@
 import {PostProps} from "../../pages/home";
 import {useContext, useState} from "react";
-import {arrayUnion, doc, updateDoc} from "firebase/firestore";
+import {addDoc, arrayUnion, collection, doc, updateDoc} from "firebase/firestore";
 import {db} from "../../firebaseApp";
 import AuthContext from "../../context/AuthContext";
 import {toast} from "react-toastify";
@@ -12,6 +12,11 @@ export  interface CommentFormProps {
 export default function CommentForm({post}: CommentFormProps) {
     const [comment, setComment] = useState<string>("");
     const {user} = useContext(AuthContext);
+
+    // 댓글 알림 내용 길 경우 - 내용 줄이기
+    const truncate = (str: string) => {
+        return str?.length > 10 ? str?.substring(0, 10) + "..." : str;
+    }
 
     const onSubmit = async (e: any) => {
         e.preventDefault(); // 내부에 폼이 입력 안되게
@@ -34,6 +39,21 @@ export default function CommentForm({post}: CommentFormProps) {
             await updateDoc(postRef, {
                 comments: arrayUnion(commentObj), //arrayUnion 배열에 commentObj를 추가
             });
+
+            // 댓글 생성 알림 만들기
+            if (user?.uid !== post?.uid){ // 유저와 게시글 작성자 아이디가 같을때 예외처리
+                await addDoc(collection(db, "notifications"), {
+                    createdAt: new Date()?.toLocaleDateString("ko", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                    }),
+                    uid: post?.uid, // 게시글 작성자에게 알림
+                    isRead: false,
+                    url: `/posts/${post?.id}`,
+                    content: `"${truncate(post?.content)} 글에 댓글이 작성되었습니다.`, // 알림 내용
+                })
+            }
 
             // 댓글 생성 성공
             toast.success("댓글을 생성했습니다.");

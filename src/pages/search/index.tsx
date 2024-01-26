@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {PostProps} from "../home";
 import AuthContext from "../../context/AuthContext";
 import {db} from "../../firebaseApp";
-import {collection, query, where, orderBy, onSnapshot, doc} from "firebase/firestore";
+import {collection, query, where, orderBy, onSnapshot} from "firebase/firestore";
 
 
 export default function SearchPage(){

@@ -8,6 +8,7 @@ import {arrayRemove, arrayUnion, deleteDoc, doc, updateDoc} from "firebase/fires
 import {db, storage} from "firebaseApp";
 import { toast } from "react-toastify";
 import {deleteObject, ref} from "firebase/storage";
+import FollowingBox from "../following/FollowingBox";
 
 interface PostBoxProps {
     post: PostProps;
@@ -54,18 +55,24 @@ export default function PostBox({post}: PostBoxProps){
     };
     return (
         <div className="post_box" key={post?.id}>
-            <Link to={`/posts/${post?.id}`}>
-                <div className="post_box-profile">
-                    <div className="post_flex">
-                        {post?.profileUrl ? (
-                            <img src={post?.profileUrl} alt="prorile"
-                                 className="post_box-profile-img"/>
-                        ) : (
-                            <FaUserCircle className="post_box-profile-icon"/>
-                        )}
-                        <div className="post_email">{post?.email}</div>
-                        <div className="post_createdAt">{post?.createdAt}</div>
+
+            <div className="post_box-profile">
+                <div className="post_flex">
+                    {post?.profileUrl ? (
+                        <img src={post?.profileUrl} alt="prorile"
+                             className="post_box-profile-img"/>
+                    ) : (
+                        <FaUserCircle className="post_box-profile-icon"/>
+                    )}
+                    <div className="post_flex-between">
+                        <div className="post_flex">
+                            <div className="post_email">{post?.email}</div>
+                            <div className="post_createdAt">{post?.createdAt}</div>
+                        </div>
+                        <FollowingBox post={post}/>
                     </div>
+                </div>
+                <Link to={`/posts/${post?.id}`}> {/*해당 게시글로 이동*/}
                     <div className="post_box-content">{post?.content}</div>
                     {/*업로드 된 파일 이미지 보여주기*/}
                     {post?.imageUrl && (
@@ -84,9 +91,9 @@ export default function PostBox({post}: PostBoxProps){
                             <span className="post-form_hashtags-tag" key={index}>#{tag}</span>
                         ))}
                     </div>
+                </Link>
+            </div>
 
-                </div>
-            </Link>
             <div className="post_box-footer">
                 {/* post.uid === user.uid 일때 */}
                 {user?.uid === post?.uid && ( //유저의 아이디가 포스트의 아이디와 일치할때만 삭제

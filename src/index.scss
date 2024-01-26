@@ -1,21 +1,4 @@
-$background: 1e293b;
-$backgroundDm: #1e293b; //배경 다크모드
-$activeBg: #ddd;
-$white:#fff;
-$black:#444;
-$backgroundLight:#ddd;
-$border:#ddd;
-$primaryColor:#60a5fa;
-$activeBorder:#3b82f6;
-$grayText: #9ca3af;
-$danger:#dc2626;
-$dangerDark:#dc26268e;
-$gray:#6b7280;
-$grayDark: #4f545e;
-
-$font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-sans-serif;
+@import './_utils.scss';
 
 //전체 레이아웃
 body {
@@ -92,6 +75,10 @@ body {
     //background-color: transparent;
     background-color: #dddddd40;
 
+    &_text {
+      background-color: transparent;
+    }
+
     button {
       border:none;
       display: flex;
@@ -108,6 +95,50 @@ body {
         background-color: transparent;
       }
     }
+  }
+}
+
+@include xsMobile {
+  .footer {
+    display: none;
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+@include mobile {
+  .footer {
+    &_grid {
+      &-text {
+        display: none;
+      }
+      button {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+@include tablet {
+  .footer {
+    &_grid {
+      &-text {
+        display: none;
+      }
+      button {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
   }
 }
 
@@ -570,6 +601,11 @@ body {
   justify-content: space-between;
   align-items: center;
 
+  &_flex {
+    display: flex;
+    gap: 8px;
+  }
+
   &_image {
     border-radius: 50%;
     width: 100px;
@@ -583,6 +619,16 @@ body {
     &:hover,
     &:focus {
       background-color: $activeBorder;
+    }
+
+    &-language {
+      @extend .button;
+      background-color: $gray;
+
+      &:hover,
+      &:focus {
+        background-color: $grayDark;
+      }
     }
   }
 

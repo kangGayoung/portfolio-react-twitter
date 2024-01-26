@@ -9,6 +9,7 @@ import {deleteObject, getDownloadURL, ref, uploadString} from "firebase/storage"
 import {v4 as uuidv4} from "uuid";
 import AuthContext from "../../context/AuthContext";
 import PostHeader from "./PostHeader";
+import useTranslation from "../../hooks/useTranslation";
 
 export default function PostEditForm(){
     const [hashTag, setHashTag] = useState<string>("");
@@ -23,6 +24,7 @@ export default function PostEditForm(){
     const [content, setContent] = useState<string>("");
     const navigate = useNavigate();
     const {user} = useContext(AuthContext);
+    const t = useTranslation();
 
     const handleFileUpload = (e:any) => {
         const {
@@ -139,7 +141,7 @@ export default function PostEditForm(){
             <PostHeader/>
             <form className="post-form" onSubmit={onSubmit}>
             <textarea className="post-form_textarea" required name="content" id="content"
-                      placeholder="What is happening?" onChange={onChange} value={content}/>
+                      placeholder={t("POST_PLACEHOLDER")} onChange={onChange} value={content}/>
                 <div className="post-form_hashtags">
                 <span className="post-form_hashtags-outputs">
                   {tags?.map((tag, index) => (
@@ -156,6 +158,7 @@ export default function PostEditForm(){
                         className="post-form_input"
                         name="hashtag"
                         id="hashtag"
+                        placeholder={t("POST_PLACEHOLDER")}
                         onChange={onChangeHashTag}
                         onKeyUp={handleKeyUp}
                         value={hashTag}
@@ -175,7 +178,7 @@ export default function PostEditForm(){
                                 <img src={imageFile} alt="attachment" width={100} height={100}/>
                                 <button className="post-form_clear-btn" type="button"
                                         onClick={handleDeleteImage}>
-                                    Clear
+                                    {t("BUTTON_DELETE")}
                                 </button>
                             </div>
                         )}

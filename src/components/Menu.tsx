@@ -9,38 +9,53 @@ import { getAuth, signOut } from "firebase/auth";
 import {app} from "../firebaseApp";
 import {toast} from "react-toastify";
 import {IoMdNotificationsOutline} from "react-icons/io";
+import useTranslation from "hooks/useTranslation";
 
 export default function MenuList() {
     const {user} = useContext(AuthContext);
     //console.log(user)
     const navigate = useNavigate();
+    const t = useTranslation();
+    
     return (
-        <div className="footer">
-            <div className="footer_grid">
-                <button type="button" onClick={() => navigate("/")}><BsHouse/>Home</button>
-                <button type="button" onClick={() => navigate("/profile")}><BiUserCircle/>Profile
-                </button>
-                <button type="button" onClick={() => navigate("/search")}><AiOutlineSearch/>Search
-                </button>
-                <button type="button" onClick={() => navigate("/notifications")
-                }><IoMdNotificationsOutline/>Notify
-                </button>
-                {user === null ? (
-                    <button type="button" onClick={() => navigate("/user/login")}><MdLogin/>Login
-                    </button>
+      <div className="footer">
+        <div className="footer_grid">
+          <button type="button" onClick={() => navigate("/")}>
+            <BsHouse />
+              <span className="footer_grid-text">{t("MENU_HOME")}</span>
+          </button>
+          <button type="button" onClick={() => navigate("/profile")}>
+            <BiUserCircle />
+              <span className="footer_grid-text">{t("MENU_PROFILE")}</span>
+          </button>
+            <button type="button" onClick={() => navigate("/search")}>
+            <AiOutlineSearch />
+                <span className="footer_grid-text">{t("MENU_SEARCH")}</span>
+            </button>
+            <button type="button" onClick={() => navigate("/notifications")}>
+            <IoMdNotificationsOutline />
+                <span className="footer_grid-text">{t("MENU_NOTI")}</span>
+            </button>
+            {user === null ? (
+            <button type="button" onClick={() => navigate("/user/login")}>
+              <MdLogin />
+                <span className="footer_grid-text">{t("MENU_LOGIN")}</span>
+            </button>
                 ) : (
-                    <button type="button" onClick={async () => {
-                        const auth = getAuth(app);
-                        //사용자를 로그아웃시키려면 signOut을 호출
-                        await signOut(auth);
-                        toast.success("로그아웃 되었습니다.")
-                    }}>
-                        <MdLogout/>
-                        Logout
-                    </button>
+            <button
+              type="button"
+              onClick={async () => {
+                const auth = getAuth(app);
+                //사용자를 로그아웃시키려면 signOut을 호출
+                await signOut(auth);
+                toast.success("로그아웃 되었습니다.");
+              }}
+            >
+              <MdLogout />
+                <span className="footer_grid-text">{t("MENU_LOGOUT")}</span>
+            </button>
                 )}
-
-            </div>
         </div>
+      </div>
     );
 }

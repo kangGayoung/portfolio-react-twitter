@@ -103,7 +103,7 @@ export default function PostBox({post}: PostBoxProps){
                         <button type="button" className="post_delete"
                             onClick={handleDelete}>{t("BUTTON_DELETE")}</button>
                     <button type="button" className="post_edit">
-                        <Link to={`/posts/edit/${post?.id}`}>{t("BUTTON_EDIT")}t</Link>
+                        <Link to={`/posts/edit/${post?.id}`}>{t("BUTTON_EDIT")}</Link>
                     </button>
                 </>
                 )}

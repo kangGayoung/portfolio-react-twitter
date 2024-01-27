@@ -502,6 +502,12 @@ body {
   max-width: 680px;
   padding: 20px;
 
+  &_title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+  }
+
   input{
     height: 20px;
     padding: 10px;

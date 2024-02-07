@@ -101,11 +101,13 @@ export default function PostBox({post}: PostBoxProps){
                 {user?.uid === post?.uid && ( //유저의 아이디가 포스트의 아이디와 일치할때만 삭제
                     <>
                         <button type="button" className="post_delete"
-                                onClick={handleDelete}>{t("BUTTON_DELETE")}</button>
-                        <button type="button" className="post_edit">
-                            <Link to={`/posts/edit/${post?.id}`}>{t("BUTTON_EDIT")}</Link>
-                        </button>
-                    </>
+
+                            onClick={handleDelete}>{t("BUTTON_DELETE")}</button>
+                    <button type="button" className="post_edit">
+                        <Link to={`/posts/edit/${post?.id}`}>{t("BUTTON_EDIT")}</Link>
+                    </button>
+                </>
+
                 )}
 
                 <button type="button" className="post_likes" onClick={toggleLike}>

@@ -35,7 +35,7 @@ export default function CommentForm({post}: CommentFormProps) {
                     second: "2-digit",
                 }),
             };
-            
+
             await updateDoc(postRef, {
                 comments: arrayUnion(commentObj), //arrayUnion 배열에 commentObj를 추가
             });

@@ -34,17 +34,17 @@ export default function FollowingBox({post}:FollowingProps){
                 const followingRef = doc(db, "following", user?.uid);
 
                 await setDoc(followingRef, {
-                    users: arrayUnion({id: post?.uid}),
-                },
-                {merge: true}
+                        users: arrayUnion({id: post?.uid}),
+                    },
+                    {merge: true}
                 );
                 // 팔로우 당하는 사람이 주체가 되어 '팔로우' 컬렉션 생성 or 업데이트
                 const followerRef = doc(db, "follower", post?.uid);
 
                 await setDoc(followerRef, {
-                    users:arrayUnion({id: user?.uid})
-                },
-                {merge: true}
+                        users:arrayUnion({id: user?.uid})
+                    },
+                    {merge: true}
                 );
 
                 // 팔로잉 알림 생성
@@ -114,10 +114,10 @@ export default function FollowingBox({post}:FollowingProps){
         <>
             {user?.uid !== post?.uid && // 유저아이디와 게시글 작성자 아이디가 달라야 함
                 (postFollowers?.includes(user?.uid) ? (
-                    <button className="post_following-btn" onClick={onClickDeleteFollow}>Following</button>
-                ) : (
-                    <button className="post_follow-btn" onClick={onClickFollow}>Follower</button>
-                )
+                        <button className="post_following-btn" onClick={onClickDeleteFollow}>Following</button>
+                    ) : (
+                        <button className="post_follow-btn" onClick={onClickFollow}>Follower</button>
+                    )
                 )}
         </>
 

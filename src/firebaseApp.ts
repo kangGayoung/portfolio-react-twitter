@@ -1,5 +1,6 @@
 import { initializeApp, FirebaseApp, getApp } from "firebase/app";
 import {getFirestore} from 'firebase/firestore';
+import {getStorage} from "firebase/storage";
 
 // Initialize Firebase
 export let app: FirebaseApp;
@@ -21,7 +22,10 @@ try {
 
 const firebase = initializeApp(firebaseConfig);
 
-//파이어스토어 적용
+// 파이어스토어 적용
 export const db = getFirestore(app);
+
+// 스토리지 적용
+export const storage = getStorage(app);
 
 export default firebase;

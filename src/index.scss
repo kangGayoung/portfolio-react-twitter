@@ -1,18 +1,4 @@
-$background: #1e293b;
-$activeBg: #131b26;
-$white:#fff;
-$border:#708090;
-$primaryColor:#60a5fa;
-$activeBorder:#3b82f6;
-$grayText: #9ca3af;
-$danger:#dc2626;
-$dangerDark:#dc26268e;
-$gray:#6b7280;
-$grayDark: #4f545e;
-
-$font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-sans-serif;
+@import './_utils.scss';
 
 //전체 레이아웃
 body {
@@ -22,8 +8,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 * {
-  background-color: $background;
-  color:$white;
+  //background-color: $background;
+  color:$black;
+}
+
+.Toastify__toast-body > div:last-child {
+  color: white;
 }
 
 .layout {
@@ -44,6 +34,13 @@ body {
   border:none;
   cursor: pointer;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  color:$white;
+
+  & a {color:$white;}
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .transparent {
@@ -70,12 +67,17 @@ body {
   width: 100%;
   max-width: 600px;
   background-color: transparent;
-  color: $white;
+  color: $black;
 
   &_grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0,1fr));
-    background-color: transparent;
+    grid-template-columns: repeat(5, minmax(0,1fr));
+    //background-color: transparent;
+    background-color: #dddddd40;
+
+    &_text {
+      background-color: transparent;
+    }
 
     button {
       border:none;
@@ -87,15 +89,91 @@ body {
       background-color: transparent;
       padding: 16px 0;
       backdrop-filter: blur(10px);
+
+      svg {
+        backdrop-filter: blur(10px);
+        background-color: transparent;
+      }
     }
+  }
+}
+
+@include xsMobile {
+  .footer {
+    display: none;
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+@include mobile {
+  .footer {
+    &_grid {
+      &-text {
+        display: none;
+      }
+      button {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+@include tablet {
+  .footer {
+    &_grid {
+      &-text {
+        display: none;
+      }
+      button {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
   }
 }
 
 // home layout
 .home {
+
+  &_search-div {
+    display: flex;
+    justify-content: center;
+  }
+
+  &_search {
+    @extend .post-form_input;
+    background-color: $backgroundLight;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 12px;
+    width: 90% !important;
+    font-size: 15px;
+    font-weight: 600;
+
+    &:focus {
+      border: 1px solid $primaryColor;
+      background-color: $activeBg;
+    }
+  }
+
   &_top {
     @extend .transparent;
     @extend .sticky;
+
+  }
+
+  &_top-bg {
+    background-color: #dddddd40 ;
   }
 
   &_title {
@@ -105,6 +183,7 @@ body {
     font-weight: 700;
     font-size: 20px;
   }
+
   &_tabs{
     background-color: transparent;
     width: 100%;
@@ -119,7 +198,7 @@ body {
     padding:16px;
     cursor: pointer;
 
-    &--active {
+    &-active {
       font-weight: 700;
       border-bottom: 2px solid $activeBorder;
     }
@@ -131,6 +210,84 @@ body {
   }
 }
 .post-form {
+  &_profile {
+    padding: 16px;
+
+    .post-form_input {
+      border-bottom: 1px solid $gray;
+      padding: 8px 2px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 20px;
+
+      &:active,
+      &:focus {
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+
+  &_image-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &_attachment {
+    display: flex;
+    align-items: end;
+    gap: 16px;
+  }
+
+  &_clear-btn {
+    @extend .button;
+    padding: 0.2rem 0.8rem;
+    background-color: $danger;
+
+    &:hover,
+    &:focus {
+      background-color: $dangerDark;
+    }
+  }
+
+  &_input {
+    font-family: $font;
+    padding: 8px;
+    border: none;
+    resize: none;
+    outline: none;
+    margin-top: 8px;
+    width: calc(100% - 32px);
+  }
+
+  &_hashtags {
+    padding: 16px;
+    border-bottom: 1px solid $border;
+
+    &-outputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 1px;
+      align-items: center;
+    }
+
+    &-tag {
+      font-size: 14px;
+      border: 1px solid $primaryColor;
+      color: $primaryColor;
+      border-radius: 10px;
+      padding: 2px 8px;
+      margin-right: 6px;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        color: $activeBorder;
+        border: 1px solid $activeBorder;
+      }
+    }
+  }
+
   &_textarea {
     font-family: $font;
     min-height: 120px;
@@ -154,6 +311,7 @@ body {
     padding: 0.75rem 1rem;
     justify-content: space-between;
     border-bottom: 1px solid $border;
+    align-items: center; //트윗 버튼 정렬
 
     .post-form_file {
       display: flex;
@@ -183,10 +341,17 @@ body {
 
 // post layout
 .post {
+
+  &_image-div {
+    padding: 16px;
+  }
+
   &_header {
     button {
       border: none;
       padding: 16px;
+
+      background: transparent;
     }
 
     &-btn {
@@ -201,9 +366,11 @@ body {
 
     .post_text {
       font-size: 14px;
-      border: 1px solid $gray;
+      //border: 1px solid $gray;
+      border: 1px solid #ddd;
       padding: 16px;
       border-radius: 4px;
+      color: $gray;
     }
   }
 
@@ -213,6 +380,36 @@ body {
     display: flex;
     gap: 4px;
     align-items: center;
+
+    &-between {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  &_follow-btn {
+    @extend .button;
+    background-color: $activeBorder;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      background-color: $white;
+      color: $activeBorder;
+    }
+  }
+
+  &_following-btn {
+    @extend .button;
+    background-color: $white;
+    color: $activeBorder;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+      color: $white;
+    }
   }
 
   &_email,
@@ -239,6 +436,8 @@ body {
         width: 40px;
         height: 40px;
         border-radius: 50%;
+
+        opacity: 0.3;
       }
     }
 
@@ -283,6 +482,8 @@ body {
 
         &.post_likes,
         &.post_comments {
+          color: $black;
+
           @extend .post_flex;
 
           &:hover,
@@ -300,6 +501,12 @@ body {
   margin: 0 auto;
   max-width: 680px;
   padding: 20px;
+
+  &_title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+  }
 
   input{
     height: 20px;
@@ -370,6 +577,8 @@ body {
     background-color: $white;
     color: $activeBorder;
 
+    border: 1px solid;
+
     &:hover,
     &focus {
       background-color: $activeBorder;
@@ -387,6 +596,64 @@ body {
       background-color: $activeBg;
       color: $white;
     }
+  }
+}
+
+// 프로필 레이아웃
+.profile {
+  display: flex;
+  padding: 0 1rem;
+  margin-top: 2.5rem;
+  justify-content: space-between;
+  align-items: center;
+
+  &_flex {
+    display: flex;
+    gap: 8px;
+  }
+
+  &_image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+
+  &_btn {
+    @extend .button;
+    background-color: $primaryColor;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+    }
+
+    &-language {
+      @extend .button;
+      background-color: $gray;
+
+      &:hover,
+      &:focus {
+        background-color: $grayDark;
+      }
+    }
+  }
+
+  &_text {
+    padding: 0 1rem;
+    margin-top: 20px;
+  }
+
+  &_name {
+    font-size: 16px;
+    color: $black;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  &_email {
+    font-size: 14px;
+    color: $grayText;
+    margin-bottom: 4px;
   }
 }
 

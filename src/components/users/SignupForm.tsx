@@ -135,5 +135,5 @@ export default function SignupForm(){
                 <button type="button" name="github" className="form_btn-github" onClick={onClickSocialLogin} >Github로 회원가입</button>
             </div>
         </form>
-);
+    );
 }
